@@ -1,0 +1,185 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Making Swiggy a Daily Habit — Ajay Patil</title><meta name="description" content="Product strategy to grow Swiggy's daily customers: three strategies tested against what Swiggy had already tried, with a bear/base/bull estimate built on FY24 data (base case +96,625 orders a day)."><meta property="og:type" content="website"><meta property="og:title" content="Making Swiggy a Daily Habit: Product Strategy Case Study"><meta property="og:description" content="Product strategy to grow Swiggy's daily customers: three strategies tested against what Swiggy had already tried, with a bear/base/bull estimate built on FY24 data (base case +96,625 orders a day)."><meta property="og:url" content="https://ajaaypatil0108.github.io/swiggy-daily-customers-strategy/"><meta property="og:image" content="https://ajaaypatil0108.github.io/swiggy-daily-customers-strategy/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://ajaaypatil0108.github.io/swiggy-daily-customers-strategy/og-image.png"><link rel="icon" href="data:image/svg+xml,<svg viewBox='0 0 40 40' width='40' height='40' aria-hidden='true'><rect width='40' height='40' rx='10' fill='%23FFF3E8'/><path d='M14 9.5h12' stroke='%237A3E12' stroke-width='2.4' stroke-linecap='round'/><path d='M15 9.5v3M25 9.5v3' stroke='%237A3E12' stroke-width='2.4' stroke-linecap='round'/><rect x='10' y='13' width='20' height='6.5' rx='2.2' fill='%23E8702A'/><rect x='10' y='20.8' width='20' height='6.5' rx='2.2' fill='%23F2B27A'/><rect x='10' y='28.6' width='20' height='6.5' rx='2.2' fill='%23E8702A'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet"><style>
+:root{--bg:#FFFBF7;--s1:#FFFFFF;--s2:#FFF3E8;--line:#EFE4DA;--o:#E8702A;--ob:#7A3E12;--t:#1E1A17;--m:#5E554E;--cell:#F1E6DC;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.62;font-size:16px}
+a{color:var(--ob)}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+header.hero{background:linear-gradient(180deg,#FFE7D3 0%,#FFF3E8 55%,var(--bg) 100%);padding:52px 0 36px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.06em;color:var(--ob);font-size:13px;text-transform:uppercase}
+h1,h2,h3{font-family:Lora,Georgia,serif;letter-spacing:-.01em}
+h1{font-size:clamp(32px,5.4vw,50px);line-height:1.08;margin:18px 0 14px;font-weight:700}
+.sub{color:var(--m);max-width:660px;margin:0;font-size:17px}
+.meta{margin-top:18px;color:var(--m);font-size:14px}
+.meta b{color:var(--t)}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-block;background:var(--o);color:#fff;font-weight:600;padding:11px 20px;border-radius:999px;text-decoration:none}
+.btn.alt{background:transparent;color:var(--t);border:1px solid #CDBFB2}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 0}
+.kpi{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .v{font-size:26px;font-weight:700;color:var(--o);font-variant-numeric:tabular-nums}
+.kpi .k{font-size:13px;color:var(--m);line-height:1.35}
+nav.toc{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 0}
+nav.toc a{background:var(--s1);border:1px solid var(--line);color:var(--t);text-decoration:none;padding:5px 12px;border-radius:999px;font-size:13px}
+section{padding:34px 0;border-bottom:1px solid var(--line)}
+h2{font-size:27px;margin:0 0 16px;line-height:1.2}
+h3{font-size:21px;margin:0 0 10px}
+h4{margin:0 0 6px;font-size:16px}
+p,li{color:#2E2824}
+.note{background:var(--s2);border-left:3px solid var(--o);padding:12px 16px;border-radius:6px}
+.assume{background:#FFF8E6;border-left:3px solid #D9A400;padding:12px 16px;border-radius:6px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:12px 0}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card p{margin:6px 0;color:var(--m);font-size:15px}
+.tw{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--s1)}
+th{text-align:left;color:var(--m);font-weight:600;border-bottom:1px solid #DCCFC3;padding:8px 10px;background:var(--s2)}
+td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+td:not(:first-child){font-variant-numeric:tabular-nums}
+tr.tot td{border-top:1px solid #DCCFC3}
+tr.grp td{background:#FBF5EF;font-weight:600;color:var(--ob);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+table.tl tr.now td{background:#FFE7D3;font-weight:600}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;margin-right:4px}
+.pill.hi{background:#E8702A;color:#fff}.pill.md{background:#F2B27A;color:#3B1E08}.pill.lo{background:#EDE3DA;color:#5E554E}
+.strat{display:grid;grid-template-columns:44px 1fr;gap:14px;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+.strat p{margin:8px 0}
+.snum{width:40px;height:40px;border-radius:50%;background:var(--o);color:#fff;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center;font-family:Lora,Georgia,serif}
+svg.chart{width:100%;height:auto;margin:10px 0;display:block}
+.pchart svg.chart{max-width:560px}
+svg .lbl{fill:#2E2824;font-size:14px;font-weight:600;font-family:Inter,sans-serif}
+svg .val{fill:#5E554E;font-size:13px;font-family:Inter,sans-serif}
+.cap{color:var(--m);font-size:14px;margin-top:0}
+.cw{overflow-x:auto}
+sup{color:var(--ob);font-size:.7em;margin-left:1px}
+footer{padding:30px 0 46px;color:var(--m);font-size:13px}
+footer ol{padding-left:20px} footer li{color:var(--m);margin:3px 0;word-break:break-word}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.strat{grid-template-columns:1fr}svg.chart{min-width:560px}svg.grid{min-width:0}}
+</style></head><body>
+<header class="hero"><div class="wrap">
+<div class="brand"><svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#FFF3E8"/>
+<path d="M14 9.5h12" stroke="#7A3E12" stroke-width="2.4" stroke-linecap="round"/><path d="M15 9.5v3M25 9.5v3" stroke="#7A3E12" stroke-width="2.4" stroke-linecap="round"/>
+<rect x="10" y="13" width="20" height="6.5" rx="2.2" fill="#E8702A"/><rect x="10" y="20.8" width="20" height="6.5" rx="2.2" fill="#F2B27A"/>
+<rect x="10" y="28.6" width="20" height="6.5" rx="2.2" fill="#E8702A"/></svg><span>Case study · Product strategy</span></div>
+<h1>Making Swiggy a daily habit</h1>
+<p class="sub">A product strategy to grow Swiggy's daily customers by winning the weekday lunch: three strategies, checked against what Swiggy had already tried, with an estimate of how many extra orders a day they could add.</p>
+<p class="meta"><b>Ajay Patil</b> · Personal project · Feb 2024 · Revised Oct 2026</p>
+<div class="btns"><a class="btn" href="Swiggy_Daily_Customers_Strategy.pdf" download>Download the PDF</a><a class="btn alt" href="https://github.com/ajaaypatil0108/swiggy-daily-customers-strategy">View on GitHub</a></div>
+<div class="kpis">
+<div class="kpi"><div class="v">1.58M</div><div class="k">Food orders a day, FY24</div></div>
+<div class="kpi"><div class="v">3.8</div><div class="k">Orders per monthly user, per month</div></div>
+<div class="kpi"><div class="v">+97K</div><div class="k">Extra orders a day, base case</div></div>
+<div class="kpi"><div class="v">+6.1%</div><div class="k">Base case (range +1.7% to +14.4%)</div></div>
+</div>
+<nav class="toc"><a href="#problem">The problem</a><a href="#business">How Swiggy makes money</a><a href="#segments">Who orders, and who could order every day</a><a href="#competition">Competition (as of Feb 2024)</a><a href="#history">What Swiggy had already tried</a><a href="#strategies">Three strategies</a><a href="#impact">Expected impact</a><a href="#economics">The economics</a><a href="#pilots">Pilot plan and what to measure</a><a href="#risks">Risks and limits</a></nav>
+</div></header>
+<main class="wrap"><section id="problem" class=""><h2>1 · The problem: food delivery is a treat, not a habit</h2>
+<p>In FY24 (April 2023 to March 2024), Swiggy's food delivery business handled <b>577.7 million orders</b> worth <b>₹24,717.4 crore</b>, from an average of <b>12.73 million monthly transacting users</b>.<sup>1</sup> The average order was <b>₹428</b>.<sup>2</sup></p>
+<p>That works out to about <b>1.58 million orders a day</b>, and only <b>3.78 orders per user per month</b>. Most users order less than once a week.</p>
+<div class="cw"><svg viewBox="0 0 600 74" class="chart grid" role="img" aria-label="About 4 of 30 days have an order"><rect x="0" y="0" width="34" height="34" rx="6" fill="#E8702A"/><rect x="40" y="0" width="34" height="34" rx="6" fill="#E8702A"/><rect x="80" y="0" width="34" height="34" rx="6" fill="#E8702A"/><rect x="120" y="0" width="34" height="34" rx="6" fill="#E8702A"/><rect x="160" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="200" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="240" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="280" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="320" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="360" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="400" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="440" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="480" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="520" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="560" y="0" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="0" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="40" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="80" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="120" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="160" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="200" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="240" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="280" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="320" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="360" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="400" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="440" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="480" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="520" y="40" width="34" height="34" rx="6" fill="var(--cell)"/><rect x="560" y="40" width="34" height="34" rx="6" fill="var(--cell)"/></svg></div><p class="cap">An average monthly user orders on about 4 of 30 days (3.78 orders a month).</p>
+<p class="note"><b>The insight that shapes this plan:</b> to add daily customers, Swiggy has to win a meal people need every day. Weekend dinners and cravings are already Swiggy's strength. The everyday meal it barely touches is the <b>weekday lunch</b>, and at ₹428 the average restaurant order is too expensive to buy five times a week.</p>
+</section><section id="business" class=""><h2>2 · How Swiggy makes money</h2>
+<ul>
+<li><b>Restaurant commissions</b>, charged as a share of each order, plus <b>advertising</b> that restaurants buy to be seen in the app.<sup>3</sup></li>
+<li><b>Customer fees:</b> delivery fees and a per-order platform fee, which Swiggy introduced in April 2023.<sup>4</sup></li>
+<li><b>Membership:</b> Swiggy One, which customers pay for in exchange for free deliveries and discounts.<sup>10</sup></li>
+</ul>
+<p>After delivery and other variable costs, the average food order left Swiggy a contribution of about <b>₹24.4</b> in FY24.<sup>3</sup> That number matters later: it is the most Swiggy can spend to win one extra order without losing money on it.</p>
+</section><section id="segments" class=""><h2>3 · Who orders, and who could order every day</h2>
+<div class="tw"><table>
+<tr><th>Segment</th><th>How they use Swiggy today</th><th>Daily potential</th></tr>
+<tr><td><b>Office professionals</b> (25–40, metros)</td><td>Weekday lunch and dinner when busy; value speed and ease</td><td><span class="pill hi">High</span> weekday lunch</td></tr>
+<tr><td><b>People living away from home</b> (PGs, hostels, migrant workers)</td><td>No home kitchen; rely on local tiffin services and canteens</td><td><span class="pill hi">High</span> if the price is right</td></tr>
+<tr><td><b>Students</b> (18–25)</td><td>Evenings and weekends; driven by deals</td><td><span class="pill md">Medium</span> price is the barrier</td></tr>
+<tr><td><b>Health-conscious eaters</b></td><td>Salads, bowls, balanced meals; read ingredients</td><td><span class="pill md">Medium</span> home-style food fits</td></tr>
+<tr><td><b>Families</b></td><td>Weekends, get-togethers, festivals</td><td><span class="pill lo">Low</span></td></tr>
+<tr><td><b>Food explorers</b></td><td>Trendy and specialty restaurants</td><td><span class="pill lo">Low</span> high value, low frequency</td></tr>
+<tr><td><b>Occasional users</b></td><td>Cravings and special occasions</td><td><span class="pill lo">Low</span></td></tr>
+</table></div>
+<p><b>What stops a daily habit:</b> the price of a restaurant meal, delivery and platform fees on every order, uncertain delivery times at the lunch rush, and the fact that many people want simple home-style food on a weekday, not restaurant food.</p>
+</section><section id="competition" class=""><h2>4 · Competition (as of Feb 2024)</h2>
+<div class="grid2">
+<div class="card"><h4>Zomato</h4><p>The larger rival: ₹32,224 crore of food delivery GOV in FY24 against Swiggy's ₹24,700 crore.<sup>5</sup> It relaunched its Zomato Gold membership in January 2023, and in February 2023 launched <b>Zomato Everyday</b>, home-style meals from ₹89 in Gurugram.<sup>6</sup> Everyday is the most direct competitor to strategy 1.</p></div>
+<div class="card"><h4>Local tiffin services and dabbawalas</h4><p>The real competition for weekday lunch. When Swiggy launched Daily in 2019, it described the daily meal market as highly unorganised, with tiffin services and home chefs selling through chat groups and word of mouth.<sup>7</sup> They are cheap and trusted, but hard to discover and pay.</p></div>
+<div class="card"><h4>Dunzo</h4><p>A hyperlocal delivery app that competed with Instamart and Genie, Swiggy's courier service,<sup>9</sup> rather than with food delivery. It had been cutting back operations for months before its app and website went offline in January 2025.<sup>15</sup></p></div>
+<div class="card"><h4>Removed: Uber Eats</h4><p>The original draft analysed Uber Eats as a rival. Uber sold Uber Eats India to Zomato in January 2020,<sup>16</sup> so it was not a competitor in 2024.</p></div>
+</div>
+</section><section id="history" class=""><h2>5 · What Swiggy had already tried</h2>
+<p>A strategy is only useful if it is new. Here is what Swiggy had already done in this space:</p>
+<div class="tw"><table class="tl">
+<tr><th>When</th><th>What happened</th><th>What it means for this plan</th></tr>
+<tr><td>Jul 2015</td><td>Mumbai's dabbawalas trained Swiggy's delivery staff ahead of its Mumbai launch.<sup>12</sup></td><td>A relationship exists, but only for training, not delivery.</td></tr>
+<tr><td>Jun 2019</td><td><b>Swiggy Daily</b> launched as a separate app for home-style meals from home chefs and tiffin services, with 3-day to monthly plans, starting in Gurugram.<sup>7</sup></td><td>Strategy 1 was tried before.</td></tr>
+<tr><td>2020</td><td>Daily shut down: its users were mostly office workers, who were working from home during the lockdown.<sup>8</sup> Instamart, Swiggy's grocery delivery, launched the same year.<sup>3</sup></td><td>Daily failed on timing, not on demand. Hyperlocal delivery already exists.</td></tr>
+<tr><td>Nov 2021</td><td><b>Swiggy One</b> replaced the earlier SUPER membership, adding free Instamart deliveries to food delivery benefits.<sup>10</sup></td><td>A subscription already exists.</td></tr>
+<tr><td>Oct 2023</td><td><b>Swiggy One Lite</b> launched at ₹99 for three months.<sup>11</sup></td><td>A cheap entry membership already exists.</td></tr>
+<tr class="now"><td>Feb 2024</td><td><b>This project</b></td><td></td></tr>
+<tr><td>May 2024</td><td>Swiggy restarted Daily in Bengaluru, this time inside its main app.<sup>9</sup></td><td>Swiggy reached the same conclusion as strategy 1, three months later.</td></tr>
+</table></div>
+</section><section id="strategies" class=""><h2>6 · Three strategies</h2>
+<div class="strat">
+<div class="snum">1</div><div>
+<h3>Bring home-style meals into the main app</h3>
+<p><b>The idea.</b> Weekday lunch and dinner from home chefs, tiffin services and small cloud kitchens, sold inside the Swiggy app as single meals or 5-, 10- and 20-meal plans at roughly ₹90–150 a meal.</p>
+<p><b>What is new compared with Daily (2019).</b> No separate app to download. It launches only in office-dense neighbourhoods where people are back at their desks, and it also targets people living away from home, not just office workers. Orders close the night before, so each kitchen cooks to a known count and one rider can carry several meals to the same office building or PG cluster.</p>
+<p><b>Main risk.</b> Hybrid work leaves offices half-empty on some days, home kitchens need food-safety checks, and Zomato Everyday is already in the market.</p>
+</div></div>
+
+<div class="strat">
+<div class="snum">2</div><div>
+<h3>Partner with Mumbai's dabbawalas for lunch delivery</h3>
+<p><b>The idea.</b> In Mumbai, dabbawalas carry Swiggy's home-style lunch orders from strategy 1 to offices. Customers order in the Swiggy app as usual; kitchens hand over tiffins at collection points by mid-morning; dabbawalas deliver them on their existing station-wise routes, and Swiggy pays a fee per tiffin.</p>
+<p><b>What is new.</b> In 2015 the dabbawalas trained Swiggy's riders. Here they become a delivery partner.</p>
+<p><b>Why the timing fits.</b> By 2026 the network had shrunk from nearly 5,000 dabbawalas before the pandemic to about 3,000, carrying just over 50,000 lunchboxes a day.<sup>13</sup> Before the pandemic it delivered about 200,000.<sup>14</sup> A dabbawala typically serves 15 to 20 customers.<sup>13</sup> The network has spare capacity and needs volume; Swiggy needs a cheap way to deliver a ₹100 lunch. One dabbawala carrying many tiffins on a fixed route should cost less per meal than one rider making one trip per order.</p>
+<p><b>Main risk.</b> It only works for a fixed lunch window. There is no formal registration of dabbawalas,<sup>13</sup> so contracting and accountability for late or lost meals need careful design.</p>
+</div></div>
+
+<div class="strat">
+<div class="snum">3</div><div>
+<h3>A weekday "lunch streak" inside Swiggy One</h3>
+<p><b>The idea.</b> Swiggy One and One Lite members who order lunch on a set number of weekdays in a month unlock perks: member-only lunch combos funded by restaurants, and priority delivery at the lunch rush. A progress bar on the home screen shows how close they are.</p>
+<p><b>What is new.</b> Swiggy One and One Lite already reward members with free deliveries, which make each order cheaper. The streak rewards how often members order, which is what builds a habit.</p>
+<p><b>How to keep it profitable.</b> Each member's target is set above their own usual pattern (for example, from 4 lunch orders a month to 8), so Swiggy does not pay for orders that would have happened anyway. Rewards are mostly restaurant-funded or non-cash, because each extra order is worth only about ₹24.4 to Swiggy.<sup>3</sup></p>
+<p><b>Main risk.</b> Members learn to wait for perks, and a frequency program is easy for Zomato to copy.</p>
+</div></div>
+
+<p class="note"><b>Ideas from the original draft that were set aside:</b> a healthy-food section, niche diets, virtual kitchen brands, app improvements and eco-friendly packaging are all reasonable, but they mainly improve choice and experience rather than how often people order. Hyperlocal delivery and subscriptions were also proposed, but Swiggy already had Instamart, Genie and Swiggy One.</p>
+</section><section id="impact" class=""><h2>7 · Expected impact</h2>
+<p class="assume"><b>Assumptions.</b> The baseline is Swiggy's FY24 food delivery: 577.7 million orders over 366 days, or 1,578,415 a day, from 12.73 million monthly users.<sup>1</sup> Every figure below is an illustrative planning estimate, not Swiggy data. Monthly orders are converted to daily using 30.4 days a month; dabbawala lunches run on weekdays only, so they are multiplied by 5/7. Orders are used as a stand-in for daily customers, since few customers order more than once a day.</p>
+<div class="tw"><table><tr><th></th><th>Bear</th><th>Base</th><th>Bull</th></tr><tr class="grp"><td colspan="4">Assumptions</td></tr><tr class=""><td>1 · Monthly users who take up home-style meal plans</td><td>1%</td><td>2%</td><td>3%</td></tr><tr class=""><td>1 · Home-style meals per adopter, per month</td><td>6</td><td>10</td><td>14</td></tr><tr class=""><td>2 · Dabbawalas carrying Swiggy lunches (Mumbai)</td><td>300</td><td>600</td><td>1,000</td></tr><tr class=""><td>2 · Swiggy lunches per dabbawala, per weekday</td><td>10</td><td>15</td><td>20</td></tr><tr class=""><td>1–2 · Share of these meals that replace a restaurant order</td><td>40%</td><td>30%</td><td>20%</td></tr><tr class=""><td>3 · Monthly users in the lunch streak</td><td>5%</td><td>8%</td><td>12%</td></tr><tr class=""><td>3 · Extra orders per streak member, per month</td><td>0.5</td><td>1.0</td><td>1.5</td></tr><tr class="grp"><td colspan="4">Extra orders on an average day</td></tr><tr class=""><td>1 · Home-style meals</td><td>15,075</td><td>58,625</td><td>140,700</td></tr><tr class=""><td>2 · Dabbawala lunch</td><td>1,286</td><td>4,500</td><td>11,429</td></tr><tr class=""><td>3 · Lunch streak</td><td>10,469</td><td>33,500</td><td>75,375</td></tr><tr class="tot"><td><b>Total</b></td><td><b>+26,830</b></td><td><b>+96,625</b></td><td><b>+227,504</b></td></tr><tr class="tot"><td><b>vs FY24 baseline of 1,578,415 a day</b></td><td><b>+1.7%</b></td><td><b>+6.1%</b></td><td><b>+14.4%</b></td></tr></table></div>
+<div class="cw pchart"><svg viewBox="0 0 640 166" class="chart" role="img" aria-label="Extra orders per day by scenario and strategy"><rect x="60.0" y="8" width="27.8" height="26" fill="#E8702A"/><rect x="87.8" y="8" width="2.4" height="26" fill="#7A3E12"/><rect x="90.2" y="8" width="19.3" height="26" fill="#F2B27A"/><text x="0" y="26" class="lbl">Bear</text><text x="117.5" y="26" class="val">+26,830 (+1.7%)</text><rect x="60.0" y="54" width="108.2" height="26" fill="#E8702A"/><rect x="168.2" y="54" width="8.3" height="26" fill="#7A3E12"/><rect x="176.5" y="54" width="61.8" height="26" fill="#F2B27A"/><text x="0" y="72" class="lbl">Base</text><text x="246.4" y="72" class="val">+96,625 (+6.1%)</text><rect x="60.0" y="100" width="259.7" height="26" fill="#E8702A"/><rect x="319.7" y="100" width="21.1" height="26" fill="#7A3E12"/><rect x="340.8" y="100" width="139.2" height="26" fill="#F2B27A"/><text x="0" y="118" class="lbl">Bull</text><text x="488.0" y="118" class="val">+227,504 (+14.4%)</text><rect x="60" y="145" width="12" height="12" rx="2" fill="#E8702A"/><text x="78" y="156" class="val">1 · Home-style meals</text><rect x="240" y="145" width="12" height="12" rx="2" fill="#7A3E12"/><text x="258" y="156" class="val">2 · Dabbawala lunch</text><rect x="420" y="145" width="12" height="12" rx="2" fill="#F2B27A"/><text x="438" y="156" class="val">3 · Lunch streak</text></svg></div>
+<p><b>Reading the base case:</b> together the three strategies add about <b>96,625 orders on an average day</b>, a <b>6.1%</b> increase. Home-style meals do most of the work; the dabbawala partnership is small in volume because it is limited to Mumbai's lunch hour, but it is what could make a ₹100 lunch cheap enough to deliver there.</p>
+<p class="note"><b>Why this replaces the original percentages:</b> the Feb 2024 draft claimed each strategy could add 5–20% more daily users, which together implied 30–55% growth, with no basis given. Built on Swiggy's own FY24 figures and the stated assumptions, the estimate ranges from <b>+1.7%</b> to <b>+14.4%</b>.</p>
+</section><section id="economics" class=""><h2>8 · The economics</h2>
+<div class="grid2">
+<div class="card"><h4>Cheap meals need cheap delivery</h4><p>If Swiggy's take is a share of the order, a ₹100 home-style meal earns it about 23% of what a ₹428 restaurant order does, while a one-rider, one-order delivery costs about the same. Home-style meals only make money if deliveries are batched: orders placed the night before, fixed lunch windows, many meals per trip, and in Mumbai, dabbawala routes.</p></div>
+<div class="card"><h4>Rewards have a hard ceiling</h4><p>An average order contributed about ₹24.4 in FY24.<sup>3</sup> A lunch-streak reward that costs more than that per extra order loses money, and any reward paid on an order the member would have placed anyway is pure cost. That is why targets are personal and rewards are mostly restaurant-funded.</p></div>
+</div>
+<p class="note"><b>Watch value, not just volume.</b> More orders can still mean less revenue if a ₹100 lunch replaces a ₹428 dinner. The pilots should track gross order value and contribution per customer alongside order counts.</p>
+</section><section id="pilots" class=""><h2>9 · Pilot plan and what to measure</h2>
+<div class="tw"><table>
+<tr><th>Pilot (12 weeks)</th><th>Where</th><th>How it is tested</th><th>Scale it if</th></tr>
+<tr><td><b>1 · Home-style meals</b></td><td>Two office-dense neighbourhoods</td><td>Compare against similar neighbourhoods without the launch</td><td>Adopters average 10+ meals a month and batched meals cover their delivery cost</td></tr>
+<tr><td><b>2 · Dabbawala lunch</b></td><td>Two or three Mumbai office districts, about 50 dabbawalas</td><td>Compare on-time rate and cost per meal with Swiggy's own riders</td><td>On-time rate matches riders and cost per meal is lower</td></tr>
+<tr><td><b>3 · Lunch streak</b></td><td>Swiggy One and One Lite members</td><td>Random split: half get the streak, half do not</td><td>Extra orders per member × ₹24.4 exceed the reward cost</td></tr>
+</table></div>
+<p><b>Metrics to track:</b></p>
+<ul>
+<li><b>Orders on an average day</b> (baseline 1,578,415) and <b>weekday lunch orders</b>.</li>
+<li><b>Orders per monthly user, per month</b> (baseline 3.78).</li>
+<li><b>Extra orders compared with the control group</b>, not total orders, so growth that would have happened anyway is not counted.</li>
+<li><b>Contribution per order</b> for home-style meals, and <b>plan renewal rate</b>.</li>
+<li><b>On-time rate and cost per meal</b> in the dabbawala pilot.</li>
+</ul>
+</section><section id="risks" class=""><h2>10 · Risks and limits</h2>
+<ul>
+<li><b>Assumed numbers:</b> adoption, frequency and cannibalisation rates are illustrative. Pilot results should replace them.</li>
+<li><b>Hybrid work:</b> Daily closed once because offices emptied. Launching only where offices are busy reduces this risk but does not remove it.</li>
+<li><b>Cannibalisation:</b> cheap lunches can replace pricier restaurant orders, raising order counts while lowering revenue.</li>
+<li><b>Competition:</b> Zomato Everyday was already live, and any frequency program can be copied. The lasting advantage has to come from kitchen supply and low delivery cost.</li>
+<li><b>Timing of the data:</b> the FY24 baseline comes from figures Swiggy published for its 2024 IPO, after this project's Feb 2024 date. It is used because it is the closest full year.</li>
+</ul>
+</section></main>
+<footer class="wrap"><p><b>Sources</b></p><ol><li><a href="https://community.upstox.com/t/swiggy-ipo-is-now-live-on-upstox/7128">Upstox — Swiggy IPO summary: FY24 food delivery GOV, orders and monthly transacting users</a></li><li><a href="https://inc42.com/?p=476867">Inc42 — Swiggy's FY24 results: food delivery average order value of ₹428</a></li><li><a href="https://inc42.com/features/swiggy-revenue-stack-ipo-zomato-competition/">Inc42 — Is Swiggy's revenue stack ready for the IPO test? (contribution margin per order; Instamart in 2020)</a></li><li><a href="https://inc42.com/?p=483368">Inc42 — Swiggy raises platform fee (introduced April 2023)</a></li><li><a href="https://www.medianama.com/2024/09/223-swiggy-shows-improvement-in-fy24-cutting-loss-by-43-but-zomato-races-ahead-with-rs-351-crore-profit/">MediaNama — Swiggy vs Zomato FY24 results (Sep 2024)</a></li><li><a href="https://businesstoday.in/technology/story/zomato-will-start-delivering-freshly-cooked-home-style-meals-at-rs-89-only-371119-2023-02-22">Business Today — Zomato Everyday home-style meals from ₹89; Zomato Gold relaunch (Feb 2023)</a></li><li><a href="https://www.onmanorama.com/food/features/2019/06/03/swiggy-launches-daily-app-homestyle-meals.html">Onmanorama — Swiggy launches Daily app for homestyle meals (Jun 2019)</a></li><li><a href="https://www.outlookbusiness.com/corporate/ahead-of-ipo-swiggy-restarts-daily-a-homestyle-food-ordering-service">Outlook Business — Swiggy restarts Daily; why it closed in 2020</a></li><li><a href="https://inc42.com/buzz/swiggy-restarts-daily-home-cooked-meal-deliveries-in-bengaluru/">Inc42 — Swiggy restarts Daily inside its main app in Bengaluru (May 2024)</a></li><li><a href="https://www.medianama.com/2021/11/223-swiggy-one-free-deliveries-rivals-zomato-pro/">MediaNama — Swiggy One replaces Swiggy SUPER (Nov 2021)</a></li><li><a href="https://www.swiggy.com/corporate/press-release/swiggy-launches-swiggy-one-lite-membership-for-consumers-free-delivery-extra-benefits-in-food-grocery-and-more-at-rs-99/">Swiggy press release — Swiggy One Lite at ₹99 for three months (Oct 2023)</a></li><li><a href="https://www.peoplematters.in/news/training/swiggy-takes-dabbawalas-help-train-its-delivery-staff-11724">People Matters — Swiggy takes dabbawalas' help to train its delivery staff (Jul 2015)</a></li><li><a href="https://dailypioneer.com/news/the-dabbawalas-who-once-fed-mumbai-now-battle-changing-times">The Pioneer (PTI) — The dabbawalas who once fed Mumbai now battle changing times (Jun 2026)</a></li><li><a href="https://www.salon.com/2021/08/25/mumbais-dabbawalas-delivered-thousands-of-lunches-a-day-lockdown-changed-everything_partner/">Salon — Mumbai's dabbawalas and the lockdown (Aug 2021)</a></li><li><a href="https://www.businesstoday.in/amp/technology/news/story/dunzo-goes-offline-after-cofounder-kabeer-biswas-joins-flipkart-460763-2025-01-15">Business Today — Dunzo goes offline (Jan 2025)</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/1543151/000155278120000094/e19525_uber-8k.htm">Uber Technologies Form 8-K — sale of Uber Eats India to Zomato (Jan 2020)</a></li></ol>
+<p>Independent student project. Not affiliated with or endorsed by Swiggy, Zomato or the Mumbai Tiffin Box Suppliers Association. Company and product names belong to their owners. All estimates are illustrative assumptions.</p></footer>
+</body></html>
